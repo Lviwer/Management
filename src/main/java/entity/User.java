@@ -2,12 +2,12 @@ package entity;
 
 public class User {
 
-    private Integer id;
+    private Long id;
     private String login;
     private String password;
 
 
-    public User(Integer id, String login, String password)
+    public User(Long id, String login, String password)
     {
         this.id = id;
         this.login = login;
@@ -15,7 +15,7 @@ public class User {
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
