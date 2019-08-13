@@ -9,6 +9,7 @@ public class Product {
     private String color;
     private Integer productCount;
 
+    public final static String PRODUCT_SEPARATOR ="#";
 
     public Product(Long id, String productName, Float price, Float weight, String color, Integer productCount) {
         this.id = id;
@@ -53,13 +54,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", productName='" + productName + '\'' +
-                ", price=" + price +
-                ", weight=" + weight +
-                ", color='" + color + '\'' +
-                ", productCount=" + productCount +
-                '}';
+        return id + PRODUCT_SEPARATOR + productName + PRODUCT_SEPARATOR + price + PRODUCT_SEPARATOR + weight + PRODUCT_SEPARATOR + color + PRODUCT_SEPARATOR + productCount;
     }
 }

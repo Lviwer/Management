@@ -34,14 +34,6 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
-    public boolean isProductOnWareHouse(String productName) {
-        for (Product product : products) {
-            if (product.getProductName().equals(productName))
-                return true;
-        }
-        return false;
-    }
-
     public boolean isProductExistByName(String productName) {
         for (Product product : products) {
             if (product.getProductName().equals(productName))
@@ -53,6 +45,14 @@ public class ProductServiceImpl implements ProductService {
     public boolean isProductExistById(Long productId) {
         for (Product product : products) {
             if (product.getId().equals(productId))
+                return true;
+        }
+        return false;
+    }
+    public boolean isProductOnWareHouse(String productName) {
+        for (Product product : products) {
+            if (isProductExistByName(productName) &&
+                    product.getProductCount() > 0)
                 return true;
         }
         return false;

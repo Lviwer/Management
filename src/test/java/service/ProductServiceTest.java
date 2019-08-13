@@ -91,7 +91,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testIsProductOnWareHouseWhereIs() {
+    public void testIsProductOnWareHouseWhenExist() {
         //is
         List<Product> products = new ArrayList<Product>();
         products.add(new Cloth(1L, "Skirt", 9.99f, 0.3f, "Red", 2, "M", "Leather"));
@@ -103,7 +103,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testIsProductOnWareHouseWhereIsNot() {
+    public void testIsProductOnWareHouseWhenIsNot() {
         //is
         List<Product> products = new ArrayList<Product>();
         products.add(new Boots(1L, "Shoes", 4.99f, 0.5f, "Black", 4, 46, false));
