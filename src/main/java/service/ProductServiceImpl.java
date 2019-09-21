@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
         return products.size();
     }
 
+
     public Product getProductByName(String productName) {
         for (Product product : products) {
             if (product.getProductName().equals(productName))
@@ -49,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
         }
         return false;
     }
+
     public boolean isProductOnWareHouse(String productName) {
         for (Product product : products) {
             if (isProductExistByName(productName) &&

@@ -1,6 +1,9 @@
-package entity;
+package entity.parser;
 
 import api.ProductDao;
+import entity.Boots;
+import entity.Cloth;
+import entity.Product;
 
 public class ProductParser {
 

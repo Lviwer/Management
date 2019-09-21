@@ -2,14 +2,11 @@ package dao;
 
 import api.ProductDao;
 import entity.Product;
-import entity.ProductParser;
+import entity.parser.ProductParser;
 import utils.FileUtils;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static entity.Product.PRODUCT_SEPARATOR;
 
 public class ProductDaoImpl implements ProductDao {
 
