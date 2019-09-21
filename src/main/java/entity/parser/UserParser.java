@@ -3,6 +3,7 @@ package entity.parser;
 import entity.User;
 
 public class UserParser {
+
     public static User stringToUser(String readLine) {
         String [] userInformations = readLine.split(User.USER_SEPARATOR);
 
