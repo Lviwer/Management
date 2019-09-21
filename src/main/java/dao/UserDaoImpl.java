@@ -64,13 +64,13 @@ public class UserDaoImpl implements UserDao {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
 
         String readLine = bufferedReader.readLine();
-        whiel(readLine != null)
+        while(readLine != null)
         {
             User user = UserParser.stringToUser(readLine);
             if (user != null)
                 users.add(user);
         }
-        bufferedReader.close();  //
+        bufferedReader.close();
         return users;
     }
 
@@ -90,7 +90,7 @@ public class UserDaoImpl implements UserDao {
         List<User> users = getAllUsers();
 
         for (User user : users) {
-            boolean isUserFound = user.getLogin().equals(login)
+            boolean isUserFound = user.getLogin().equals(login);
             if (isUserFound) {
                 return user;
             }
