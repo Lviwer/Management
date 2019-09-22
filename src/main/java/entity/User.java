@@ -1,5 +1,8 @@
 package entity;
 
+
+import java.util.Objects;
+
 public class User {
 
     private Long id;
@@ -32,4 +35,5 @@ public class User {
     public String toString() {
         return id + USER_SEPARATOR + login + USER_SEPARATOR + password;
     }
+
 }
