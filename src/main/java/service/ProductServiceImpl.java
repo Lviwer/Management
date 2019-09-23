@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = null;
 
         try {
-            product = productDao.getProductById(productId)
+            product = productDao.getProductById(productId);
         } catch (IOException e) {
             e.printStackTrace();
         }
