@@ -10,12 +10,16 @@ public class UserServiceImpl implements UserService {
 
     List<User> users;
 
-    public UserServiceImpl() {
-        this.users = new ArrayList<User>();
-    }
+    private UserServiceImpl instance = null;
 
-    public UserServiceImpl(List<User> users) {
-        this.users = users;
+    public UserServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new UserServiceImpl();
+        }
+        return instance;
+    }
+    private UserServiceImpl() {
+        this.users = new ArrayList<User>();
     }
 
     public List<User> getAllUsers() {
