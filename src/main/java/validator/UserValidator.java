@@ -62,7 +62,6 @@ public class UserValidator {
         if (user == null) return false;
 
         return true;
-
     }
 
 

@@ -14,10 +14,16 @@ public class ProductDaoImpl implements ProductDao {
     private final String productType;
 
     public ProductDaoImpl(String fileName, String productType)
-            throws IOException {
+    {
         this.fileName = fileName;
         this.productType = productType;
-        FileUtils.createNewFile(fileName);
+        try{
+            FileUtils.createNewFile(fileName);
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
 
