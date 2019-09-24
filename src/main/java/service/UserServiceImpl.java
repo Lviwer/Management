@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
 
     private static UserServiceImpl instance = null;
-    private UserDao userDao = new UserDaoImpl().getInstance();
+    private UserDao userDao = UserDaoImpl.getInstance();
     private UserValidator userValidator = UserValidator.getInstance();
 
     private UserServiceImpl() {
