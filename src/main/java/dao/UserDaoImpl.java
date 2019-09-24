@@ -11,14 +11,28 @@ import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
-    private final String fileName;
+    private static final String fileName="users.data";
+    private static UserDaoImpl instance = null;
 
-    public UserDaoImpl(String fileName) throws
-            IOException {
-        this.fileName = fileName;
-        FileUtils.createNewFile(fileName);
+    private UserDaoImpl()
+    {
+        try{
+            FileUtils.createNewFile(fileName);
+        } catch (IOException e)
+        {
+            System.out.println("Error with file path");
+            System.exit(-1); // <-- close app
+        }
     }
 
+    public static UserDaoImpl getInstance()
+    {
+        if(instance == null)
+        {
+           instance =  new UserDaoImpl();
+        }
+        return instance;
+    }
 
     public void saveUser(User user) throws IOException {
         List<User> users = getAllUsers();

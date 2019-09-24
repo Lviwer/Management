@@ -4,10 +4,9 @@ import api.ProductDao;
 import api.ProductService;
 import dao.ProductDaoImpl;
 import entity.Product;
-import org.omg.IOP.IOR;
+
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
