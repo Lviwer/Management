@@ -18,7 +18,7 @@ public class UserValidator {
 
 
     private static UserValidator instance = null;
-    private UserDao userDao = UserDaoImpl.getInstance(); //DOPISZ METODĘ
+    private UserDao userDao = UserDaoImpl.getInstance();
 
     private UserValidator() {
 
@@ -35,8 +35,10 @@ public class UserValidator {
             UserShortLengthPasswordException {
         if (isPasswordLengthEnough(user.getPassword()))
             throw new UserShortLengthPasswordException("Password is too short");
+
         if (isLoginLengthEnough(user.getLogin()))
             throw new UserShortLengthLoginException("Login is too short");
+
         if (isUserByLoginExist(user.getLogin()))
             throw new UserLoginAlreadyExistException("User with this login already exists");
 
