@@ -25,7 +25,12 @@ public class ProductDaoImpl implements ProductDao {
         }
 
     }
+    public void saveProduct(Product product) throws IOException {
+        List<Product> products = getAllProducts();
+        products.add(product);
+        saveProducts(products);
 
+    }
 
     public void saveProducts(List<Product> products) throws
             FileNotFoundException {
@@ -36,60 +41,6 @@ public class ProductDaoImpl implements ProductDao {
             printWriter.write(product.toString() + "\n");
         }
         printWriter.close();
-    }
-
-    public void saveProduct(Product product) throws IOException {
-        List<Product> products = getAllProducts();
-        products.add(product);
-        saveProducts(products);
-
-    }
-
-    public List<Product> getAllProducts() throws IOException {
-        List<Product> products = new ArrayList<Product>();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-
-        String readLine = bufferedReader.readLine();
-        while (readLine != null) {
-            Product product = ProductParser.stringToProduct(readLine,
-                    productType);
-            if (product != null) {
-                products.add(product);
-            }
-            readLine = bufferedReader.readLine();
-
-        }
-        bufferedReader.close();
-
-
-        return products;
-    }
-
-
-    public Product getProductById(Long productId) throws IOException {
-        List<Product> products = getAllProducts();
-
-        for (Product product : products) {
-            boolean isFoundProduct = product.getId().equals(productId);
-            if (isFoundProduct) {
-                return product;
-            }
-        }
-        return null;
-    }
-
-
-    public Product getProductByProductName(String productName) throws IOException {
-        List<Product> products = getAllProducts();
-
-        for (Product product : products) {
-            boolean isFoundProduct = product.getProductName().equals(productName);
-            if (isFoundProduct) {
-                return product;
-            }
-        }
-
-        return null;
     }
 
     public void removeProductById(Long productId) throws IOException {
@@ -115,4 +66,25 @@ public class ProductDaoImpl implements ProductDao {
         }
         saveProducts(products);
     }
+
+    public List<Product> getAllProducts() throws IOException {
+        List<Product> products = new ArrayList<Product>();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+
+        String readLine = bufferedReader.readLine();
+        while (readLine != null) {
+            Product product = ProductParser.stringToProduct(readLine,
+                    productType);
+            if (product != null) {
+                products.add(product);
+            }
+            readLine = bufferedReader.readLine();
+
+        }
+        bufferedReader.close();
+
+
+        return products;
+    }
+
 }

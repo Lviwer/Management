@@ -34,15 +34,22 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getAllProducts().size();
     }
 
+    public Product getProductByProductName(String productName) throws IOException {
+        List<Product> products = getAllProducts();
 
-    public Product getProductByName(String productName) throws IOException {
-        return productDao.getProductByProductName(productName);
+        for (int i = 0; i < products.size(); i++) {
+            boolean isFoundProduct = products.get(i).getProductName().equals(productName);
+            if (isFoundProduct) {
+                return products.get(i);
+            }
+        }
+        return null;
     }
 
     public boolean isProductExistByName(String productName) {
         Product product = null;
         try {
-            product = productDao.getProductByProductName(productName);
+            product = getProductByProductName(productName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,15 +59,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public boolean isProductExistById(Long productId) {
-        Product product = null;
-
+        List<Product> products = null;
         try {
-            product = productDao.getProductById(productId);
+            products = getAllProducts();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (product == null) return false;
-        return true;
+        for (Product value : products) {
+            boolean isFoundProduct = value.getId().equals(productId);
+            if (isFoundProduct) return true;
+        }
+        return false;
+    }
+
+    public boolean saveProduct(Product product) {
+        try {
+            productDao.saveProduct(product);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean isProductOnWareHouse(String productName) {

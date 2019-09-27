@@ -33,7 +33,19 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllUsers();
     }
 
-    public void addUser(User user) throws IOException, UserShortLengthPasswordException, UserLoginAlreadyExistException,
+    public User getUserById(Long userId) throws IOException {
+        return null;
+    }
+
+    public User getUserByLogin(String login) throws IOException {
+        return null;
+    }
+
+    public boolean isCorrectLoginAndPassword(String login, String password) {
+        return false;
+    }
+
+    public boolean addUser(User user) throws UserShortLengthPasswordException, UserLoginAlreadyExistException,
             UserShortLengthLoginException {
         if (userValidator.isValidate(user)) {
             userDao.saveUser(user);

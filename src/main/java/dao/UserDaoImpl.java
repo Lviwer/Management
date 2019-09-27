@@ -87,28 +87,4 @@ public class UserDaoImpl implements UserDao {
         bufferedReader.close();
         return users;
     }
-
-    public User getUserById(Long userId) throws IOException {
-        List<User> users = getAllUsers();
-
-        for (User user : users) {
-            boolean isFoundUser = user.getId().equals(userId);
-            if (isFoundUser) {
-                return user;
-            }
-        }
-        return null;
-    }
-
-    public User getUserByLogin(String login) throws IOException {
-        List<User> users = getAllUsers();
-
-        for (User user : users) {
-            boolean isUserFound = user.getLogin().equals(login);
-            if (isUserFound) {
-                return user;
-            }
-        }
-        return null;
-    }
 }
