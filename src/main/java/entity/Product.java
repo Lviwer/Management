@@ -10,6 +10,7 @@ public class Product {
     private Integer productCount;
 
     public final static String PRODUCT_SEPARATOR ="#";
+    public final static String PRODUCT_TYPE = "P";
 
     public Product(Long id, String productName, Float price, Float weight, String color, Integer productCount) {
         this.id = id;
@@ -54,6 +55,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return id + PRODUCT_SEPARATOR + productName + PRODUCT_SEPARATOR + price + PRODUCT_SEPARATOR + weight + PRODUCT_SEPARATOR + color + PRODUCT_SEPARATOR + productCount;
+        return PRODUCT_TYPE + PRODUCT_SEPARATOR + id + PRODUCT_SEPARATOR + productName + PRODUCT_SEPARATOR + price + PRODUCT_SEPARATOR + weight + PRODUCT_SEPARATOR + color + PRODUCT_SEPARATOR + productCount;
     }
 }

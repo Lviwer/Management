@@ -4,7 +4,7 @@ public class Cloth extends Product {
 
     private String size;
     private String material;
-
+    public final static String PRODUCT_TYPE = "C";
 
     public Cloth(Long id, String productName, Float price, Float weight, String color, Integer productCount, String size,
                  String material) {
