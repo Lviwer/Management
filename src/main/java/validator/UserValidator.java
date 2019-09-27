@@ -10,6 +10,7 @@ import exception.UserShortLengthPasswordException;
 
 
 import java.io.IOException;
+import java.util.List;
 
 public class UserValidator {
 
@@ -45,6 +46,21 @@ public class UserValidator {
         return true;
     }
 
+    public boolean isValidateLoginAndPassword(String login, String password) throws UserLoginAlreadyExistException,
+            UserShortLengthLoginException, UserShortLengthPasswordException {
+        if (isPasswordLengthEnough(password))
+            throw new UserShortLengthPasswordException("Password is too short");
+
+        if (isLoginLengthEnough(login))
+            throw new UserShortLengthLoginException("Login is too short");
+
+        if (isUserByLoginExist(login))
+            throw new UserLoginAlreadyExistException("User with this login already exists");
+
+        return true;
+    }
+
+
     private boolean isPasswordLengthEnough(String password) {
         return password.length() >= MIN_LENGTH_PASSWORD;
     }
@@ -54,17 +70,16 @@ public class UserValidator {
     }
 
     private boolean isUserByLoginExist(String login) {
-
-        User user = null;
+        List<User> users = null;
         try {
-            user = userDao.getUserByLogin(login);
+            users = userDao.getAllUsers();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (user == null) return false;
-
-        return true;
+        for (User user : users) {
+            boolean isUserExist = user.getLogin().equals(login);
+            if (isUserExist) return true;
+        }
+        return false;
     }
-
-
 }

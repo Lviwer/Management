@@ -34,22 +34,61 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getUserById(Long userId) throws IOException {
+        List<User> users = userDao.getAllUsers();
+
+        for (User user : users) {
+            boolean isFoundUser = user.getId().equals(userId);
+            if (isFoundUser) {
+                return user;
+            }
+        }
         return null;
     }
 
     public User getUserByLogin(String login) throws IOException {
+        List<User> users = userDao.getAllUsers();
+
+        for (User user : users) {
+            boolean isFoundUser = user.getLogin().equals(login);
+            if (isFoundUser) {
+                return user;
+            }
+        }
         return null;
     }
 
     public boolean isCorrectLoginAndPassword(String login, String password) {
+
+        try {
+            return userValidator.isValidateLoginAndPassword(login, password);
+
+        } catch (UserShortLengthLoginException e) {
+            e.printStackTrace();
+        } catch (UserShortLengthPasswordException e) {
+            e.printStackTrace();
+        } catch (UserLoginAlreadyExistException e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 
-    public boolean addUser(User user) throws UserShortLengthPasswordException, UserLoginAlreadyExistException,
-            UserShortLengthLoginException {
-        if (userValidator.isValidate(user)) {
-            userDao.saveUser(user);
+    public boolean addUser(User user) {
+        try {
+            if (userValidator.isValidate(user)) {
+                userDao.saveUser(user);
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UserShortLengthLoginException e) {
+            e.printStackTrace();
+        } catch (UserShortLengthPasswordException e) {
+            e.printStackTrace();
+        } catch (UserLoginAlreadyExistException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     public void removeUserById(Long userId) throws IOException {
