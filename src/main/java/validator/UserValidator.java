@@ -17,7 +17,6 @@ public class UserValidator {
     private final int MIN_LENGTH_PASSWORD = 6;
     private final int MIN_LENGTH_LOGIN = 4;
 
-
     private static UserValidator instance = null;
     private UserDao userDao = UserDaoImpl.getInstance();
 

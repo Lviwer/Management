@@ -12,8 +12,19 @@ public class ProductDaoImpl implements ProductDao {
 
     private final String fileName;
     private final String productType;
+    private static ProductDaoImpl instance = null;
 
-    public ProductDaoImpl(String fileName, String productType)
+    public ProductDaoImpl getInstance(String filename, String productType)
+    {
+        if(instance == null)
+        {
+            return new ProductDaoImpl(fileName, productType);
+        }
+        else return instance;
+    }
+
+
+    private ProductDaoImpl(String fileName, String productType)
     {
         this.fileName = fileName;
         this.productType = productType;
