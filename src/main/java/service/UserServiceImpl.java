@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     public boolean isCorrectLoginAndPassword(String login, String password) {
 
         try {
-            return userValidator.isValidateLoginAndPassword(login, password);
+            return (userValidator.isValidateLoginAndPassword(login, password) || isUserByLoginExist(login));
 
         } catch (UserShortLengthLoginException e) {
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
 
     public boolean addUser(User user) {
         try {
-            if (userValidator.isValidate(user)) {
+            if (userValidator.isValidate(user) || isUserByLoginExist(user.getLogin())) {
                 userDao.saveUser(user);
                 return true;
             }
@@ -95,4 +95,17 @@ public class UserServiceImpl implements UserService {
         userDao.removeUserById(userId);
     }
 
+    private boolean isUserByLoginExist(String login) throws UserLoginAlreadyExistException {
+        List<User> users = null;
+        try {
+            users = userDao.getAllUsers();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (User user : users) {
+            boolean isUserExist = user.getLogin().equals(login);
+            if (isUserExist) return true;
+        }
+        return false;
+    }
 }

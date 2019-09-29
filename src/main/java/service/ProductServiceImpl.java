@@ -13,7 +13,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     private static ProductServiceImpl instance = null;
-    private ProductDao productDao = new ProductDaoImpl("products.data", "PRODUCT");
+    private ProductDao productDao = ProductDaoImpl.getInstance("products.data", "PRODUCT");
 
     private ProductServiceImpl() {
     }

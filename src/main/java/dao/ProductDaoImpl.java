@@ -10,11 +10,11 @@ import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
 
-    private final String fileName;
+    private static String fileName;  // i change final too static  ; o check what will happen later !!!!!!
     private final String productType;
     private static ProductDaoImpl instance = null;
 
-    public ProductDaoImpl getInstance(String filename, String productType)
+    public static ProductDaoImpl getInstance(String filename, String productType)
     {
         if(instance == null)
         {
