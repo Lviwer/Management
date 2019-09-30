@@ -7,14 +7,14 @@ import service.UserServiceImpl;
 
 public class UserRegisterLoginFacadeImpl implements UserRegisterLoginFacade {
 
-    private UserRegisterLoginFacadeImpl instance = null;
+    private static UserRegisterLoginFacadeImpl instance = null;
     private UserService userService = UserServiceImpl.getInstance();
 
     private UserRegisterLoginFacadeImpl() {
 
     }
 
-    public UserRegisterLoginFacadeImpl getInstance() {
+    public static UserRegisterLoginFacadeImpl getInstance() {
         if (instance == null) {
             instance = new UserRegisterLoginFacadeImpl();
         }
