@@ -9,19 +9,21 @@ public class ProductParser {
 
     public static Product stringToProduct(String productStr) {
 
-        String[] productInformations = productStr.split(Product.PRODUCT_SEPARATOR);
+        final char productType = productStr.charAt(0);
 
+        switch (productType) {
+            case Product.PRODUCT_TYPE:
+                return convertToProduct(productStr); // Break nie jest tu konieczny
+            // return zapewnia wyjście z metody ! ! !
+            case Cloth.PRODUCT_TYPE:
+                return convertToCloth(productStr);
 
-        if (productInformations[0].equals("P")) {
-            return convertToProduct(productStr);
-        } else if (productInformations[0].equals("C")) {
-            return convertToCloth(productStr);
-        } else if (productInformations[0].equals("B")) {
-            return convertToBoots(productStr);
+            case Boots.PRODUCT_TYPE:
+                return convertToBoots(productStr);
         }
         return null;
-
     }
+
 
     private static Product convertToProduct(String productStr) {
         String[] productInformations = productStr.split(Product.PRODUCT_SEPARATOR);

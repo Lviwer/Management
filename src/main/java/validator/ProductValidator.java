@@ -1,7 +1,5 @@
 package validator;
 
-import api.ProductDao;
-import dao.ProductDaoImpl;
 import entity.Product;
 import exception.ProductCountNegativeException;
 import exception.ProductNameEmptyException;
@@ -10,41 +8,50 @@ import exception.ProductWeightNoPositiveException;
 
 public class ProductValidator {
 
-    private final int ZERO = 0;
     private static ProductValidator instance = null;
 
     private ProductValidator() {
 
     }
 
-    public ProductValidator getInstance() {
+    public static ProductValidator getInstance() {
         if (instance == null) {
-            return new ProductValidator();
-        } else return instance;
+            instance = new ProductValidator();
+        }
+        return instance;
     }
 
-    public boolean isValidatePrice(float price) throws ProductPriceNoPositiveException {
-        if (price > ZERO) return true;
+    public boolean isValidate(Product product) throws ProductNameEmptyException, ProductWeightNoPositiveException,
+            ProductCountNegativeException, ProductPriceNoPositiveException {
+        if (isPriceNoPositive(product.getPrice()))
+            throw new ProductPriceNoPositiveException("Product price is no positive.");
 
-        throw new ProductPriceNoPositiveException("Price can't be negative !");
+        if (isCountNegative(product.getProductCount()))
+            throw new ProductCountNegativeException("Product count is less than 0.");
+
+        if (isNameEmpty(product.getProductName()))
+            throw new ProductNameEmptyException("Product name cannot be empty.");
+
+        if (isWeightNoPositive(product.getWeight()))
+            throw new ProductWeightNoPositiveException("Product weight is less or equals 0.");
+
+        return true;
     }
 
-    public boolean isValidateProductCount(int numberOfProducts) throws ProductCountNegativeException {
-        if (numberOfProducts > ZERO) return true;
-
-        throw new ProductCountNegativeException("Number of products can't be negative !");
+    private boolean isNameEmpty(String productName) {
+        return productName.length() == 0;
     }
 
-    public boolean isValidateProductWeight(float weight) throws ProductWeightNoPositiveException {
-        if (weight > ZERO) return true;
-
-        throw new ProductWeightNoPositiveException("Product weight can't be negative !");
+    private boolean isWeightNoPositive(Float weight) {
+        return weight <= 0.0f;
     }
 
-    public boolean isValidateProductName(String name) throws ProductNameEmptyException {
-        if (name.length() > 0) return true;
-        throw new ProductNameEmptyException("Product name can't be empty !");
+    private boolean isCountNegative(Integer productCount) {
+        return productCount < 0;
     }
 
+    private boolean isPriceNoPositive(Float price) {
+        return price <= 0.0f;
+    }
 
 }

@@ -4,7 +4,7 @@ public class Boots extends Product {
 
     private Integer size;
     private boolean isNaturalSkin;
-    public final static String PRODUCT_TYPE = "B";
+    public final static char PRODUCT_TYPE = 'B';
 
     public Boots(Long id, String productName, Float price, Float weight, String color, Integer productCount, Integer size,
                  boolean isNaturalSkin) {
@@ -23,9 +23,7 @@ public class Boots extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + " Boots{" +
-                "size=" + size +
-                ", isNaturalSkin=" + isNaturalSkin +
-                '}';
+        return PRODUCT_TYPE + PRODUCT_SEPARATOR + getBasicProductString() + PRODUCT_SEPARATOR + size +
+                PRODUCT_SEPARATOR + isNaturalSkin;
     }
 }

@@ -4,7 +4,7 @@ import api.ProductDao;
 import api.ProductService;
 import dao.ProductDaoImpl;
 import entity.Product;
-
+import validator.ProductValidator;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +13,9 @@ public class ProductServiceImpl implements ProductService {
 
 
     private static ProductServiceImpl instance = null;
-    private ProductDao productDao = ProductDaoImpl.getInstance("products.data", "PRODUCT");
+    private ProductDao productDao = ProductDaoImpl.getInstance();
+    private ProductValidator productValidator = ProductValidator.getInstance();
+
 
     private ProductServiceImpl() {
     }
@@ -31,17 +33,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Integer getCountProducts() throws IOException {
-        return productDao.getAllProducts().size();
+        return getAllProducts().size();
     }
 
     public Product getProductByProductName(String productName) throws IOException {
         List<Product> products = getAllProducts();
 
-        for (int i = 0; i < products.size(); i++) {
-            boolean isFoundProduct = products.get(i).getProductName().equals(productName);
+        for (Product product : products) {
+            boolean isFoundProduct = product.getProductName().equals(productName);
             if (isFoundProduct) {
-                return products.get(i);
+                return product;
             }
+        }
+        return null;
+    }
+
+    public Product getProductById(Long productId) throws IOException {
+        List<Product> products = getAllProducts();
+
+        for (Product product : products) {
+            boolean isFoundProduct = product.getId().equals(productId);
+            if (isFoundProduct) return product;
         }
         return null;
     }
@@ -59,28 +71,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public boolean isProductExistById(Long productId) {
-        List<Product> products = null;
+        Product product = null;
         try {
-            products = getAllProducts();
+            product = getProductById(productId);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (Product value : products) {
-            boolean isFoundProduct = value.getId().equals(productId);
-            if (isFoundProduct) return true;
-        }
-        return false;
+        if (product == null) return false;
+
+        return true;
     }
 
-    public boolean saveProduct(Product product) {
-        try {
-            productDao.saveProduct(product);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public boolean isProductOnWareHouse(String productName) {
 
@@ -92,6 +93,19 @@ public class ProductServiceImpl implements ProductService {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean saveProduct(Product product) {
+        try {
+            if (productValidator.isValidate(product))
+            {
+                productDao.saveProduct(product);
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }

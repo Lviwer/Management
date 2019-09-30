@@ -4,50 +4,40 @@ import api.ProductDao;
 import entity.Product;
 import entity.parser.ProductParser;
 import utils.FileUtils;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
 
-    private static String fileName;  // i change final too static  ; o check what will happen later !!!!!!
-    private final String productType;
+    private final static String fileName = "products.data";
     private static ProductDaoImpl instance = null;
 
-    public static ProductDaoImpl getInstance(String filename, String productType)
-    {
-        if(instance == null)
-        {
-            return new ProductDaoImpl(fileName, productType);
-        }
-        else return instance;
-    }
-
-
-    private ProductDaoImpl(String fileName, String productType)
-    {
-        this.fileName = fileName;
-        this.productType = productType;
-        try{
+    private ProductDaoImpl() {
+        try {
             FileUtils.createNewFile(fileName);
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
+    public static ProductDaoImpl getInstance() {
+        if (instance == null) {
+            instance = new ProductDaoImpl();
+        }
+        return instance;
+    }
+
     public void saveProduct(Product product) throws IOException {
         List<Product> products = getAllProducts();
         products.add(product);
         saveProducts(products);
-
     }
 
-    public void saveProducts(List<Product> products) throws
-            FileNotFoundException {
+    public void saveProducts(List<Product> products) throws FileNotFoundException {
         FileUtils.clearFile(fileName);
-        PrintWriter printWriter = new PrintWriter(new
-                FileOutputStream(fileName, true));
+        PrintWriter printWriter = new PrintWriter(new FileOutputStream(fileName, true));
         for (Product product : products) {
             printWriter.write(product.toString() + "\n");
         }
@@ -89,10 +79,9 @@ public class ProductDaoImpl implements ProductDao {
                 products.add(product);
             }
             readLine = bufferedReader.readLine();
-
         }
-        bufferedReader.close();
 
+        bufferedReader.close();
 
         return products;
     }

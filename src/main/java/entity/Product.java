@@ -2,6 +2,10 @@ package entity;
 
 
 public class Product {
+
+    public final static String PRODUCT_SEPARATOR ="#";
+    public final static char PRODUCT_TYPE = 'P';
+
     private Long id;
     private String productName;
     private Float price;
@@ -9,8 +13,6 @@ public class Product {
     private String color;
     private Integer productCount;
 
-    public final static String PRODUCT_SEPARATOR ="#";
-    public final static String PRODUCT_TYPE = "P";
 
     public Product(Long id, String productName, Float price, Float weight, String color, Integer productCount) {
         this.id = id;
@@ -53,8 +55,14 @@ public class Product {
         this.productCount = productCount;
     }
 
+    protected String getBasicProductString()
+    {
+        return  id + PRODUCT_SEPARATOR + productName + PRODUCT_SEPARATOR + price + PRODUCT_SEPARATOR + weight + PRODUCT_SEPARATOR +
+                color + PRODUCT_SEPARATOR + productCount;
+    }
+
     @Override
     public String toString() {
-        return PRODUCT_TYPE + PRODUCT_SEPARATOR + id + PRODUCT_SEPARATOR + productName + PRODUCT_SEPARATOR + price + PRODUCT_SEPARATOR + weight + PRODUCT_SEPARATOR + color + PRODUCT_SEPARATOR + productCount;
+        return PRODUCT_TYPE + PRODUCT_SEPARATOR + getBasicProductString();
     }
 }

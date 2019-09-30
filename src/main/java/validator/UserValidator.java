@@ -2,7 +2,6 @@ package validator;
 
 import entity.User;
 
-import exception.UserLoginAlreadyExistException;
 import exception.UserShortLengthLoginException;
 import exception.UserShortLengthPasswordException;
 
@@ -26,33 +25,20 @@ public class UserValidator {
 
     public boolean isValidate(User user) throws UserShortLengthLoginException,
             UserShortLengthPasswordException {
-        if (isPasswordLengthEnough(user.getPassword()))
+        if (isPasswordLengthNoEnough(user.getPassword()))
             throw new UserShortLengthPasswordException("Password is too short");
 
-        if (isLoginLengthEnough(user.getLogin()))
+        if (isLoginLengthNoEnough(user.getLogin()))
             throw new UserShortLengthLoginException("Login is too short");
         return true;
     }
 
-    public boolean isValidateLoginAndPassword(String login, String password) throws UserShortLengthLoginException,
-            UserShortLengthPasswordException {
-        if (isPasswordLengthEnough(password))
-            throw new UserShortLengthPasswordException("Password is too short");
 
-        if (isLoginLengthEnough(login))
-            throw new UserShortLengthLoginException("Login is too short");
-
-        return true;
+    private boolean isPasswordLengthNoEnough(String password) {
+        return password.length() < MIN_LENGTH_PASSWORD;
     }
 
-
-    private boolean isPasswordLengthEnough(String password) {
-        return password.length() >= MIN_LENGTH_PASSWORD;
+    private boolean isLoginLengthNoEnough(String login) {
+        return login.length() < MIN_LENGTH_LOGIN;
     }
-
-    private boolean isLoginLengthEnough(String login) {
-        return login.length() >= MIN_LENGTH_LOGIN;
-    }
-
-
 }
