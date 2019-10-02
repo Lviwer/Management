@@ -4,21 +4,23 @@ package entity.parser;
 import entity.Boots;
 import entity.Cloth;
 import entity.Product;
+import entity.enums.ProductSeparators;
+import javafx.scene.paint.Color;
 
 public class ProductParser {
 
     public static Product stringToProduct(String productStr) {
 
-        final char productType = productStr.charAt(0);
+        final ProductSeparators productType = productStr.charAt(0);
 
-        switch (productType) {
-            case Product.PRODUCT_TYPE:
+        switch (ProductSeparators) {
+            case P:
                 return convertToProduct(productStr); // Break nie jest tu konieczny
             // return zapewnia wyjście z metody ! ! !
-            case Cloth.PRODUCT_TYPE:
+            case C:
                 return convertToCloth(productStr);
 
-            case Boots.PRODUCT_TYPE:
+            case B:
                 return convertToBoots(productStr);
         }
         return null;
@@ -26,13 +28,13 @@ public class ProductParser {
 
 
     private static Product convertToProduct(String productStr) {
-        String[] productInformations = productStr.split(Product.PRODUCT_SEPARATOR);
+        String[] productInformations = productStr.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
 
         Long id = Long.parseLong(productInformations[1]);
         String productName = productInformations[2];
         Float price = Float.parseFloat(productInformations[3]);
         Float weight = Float.parseFloat(productInformations[4]);
-        String color = productInformations[5];
+        Color color = toString().productInformations[5];
         Integer productCount = Integer.parseInt(productInformations[6]);
 
         return new Product(id, productName, price, weight, color, productCount);

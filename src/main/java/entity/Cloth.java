@@ -1,13 +1,17 @@
 package entity;
 
+import entity.enums.Color;
+import entity.enums.Material;
+import entity.enums.ProductSeparators;
+
 public class Cloth extends Product {
 
-    private String size;
-    private String material;
-    public final static char PRODUCT_TYPE = 'C';
 
-    public Cloth(Long id, String productName, Float price, Float weight, String color, Integer productCount, String size,
-                 String material) {
+    private String size;
+    private Material material;
+
+    public Cloth(Long id, String productName, Float price, Float weight, Color color, Integer productCount, String size,
+                 Material material) {
         super(id, productName, price, weight, color, productCount);
         this.size = size;
         this.material = material;
@@ -18,12 +22,12 @@ public class Cloth extends Product {
     }
 
     public String getMaterial() {
-        return material;
+        return material.toString();
     }
 
     @Override
     public String toString() {
-        return PRODUCT_TYPE + PRODUCT_SEPARATOR + getBasicProductString() + PRODUCT_SEPARATOR + size + PRODUCT_SEPARATOR
-                + material;
+        return ProductSeparators.CLOTH_ID + ProductSeparators.PRODUCT_SEPARATOR.toString() + getBasicProductString() +
+                ProductSeparators.PRODUCT_SEPARATOR.toString() + size + ProductSeparators.PRODUCT_SEPARATOR.toString() + material.toString();
     }
 }

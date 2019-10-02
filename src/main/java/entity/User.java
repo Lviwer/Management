@@ -1,7 +1,7 @@
 package entity;
 
 
-import java.util.Objects;
+import entity.enums.ProductSeparators;
 
 public class User {
 
@@ -9,7 +9,6 @@ public class User {
     private String login;
     private String password;
 
-    public final static String USER_SEPARATOR = "#";
 
     public User(Long id, String login, String password) {
         this.id = id;
@@ -33,7 +32,8 @@ public class User {
 
     @Override
     public String toString() {
-        return id + USER_SEPARATOR + login + USER_SEPARATOR + password;
+        return id + ProductSeparators.PRODUCT_SEPARATOR.toString() + login + ProductSeparators.PRODUCT_SEPARATOR.toString()
+                + password;
     }
 
 }
