@@ -5,6 +5,9 @@ import entity.enums.ProductSeparators;
 
 public class User {
 
+    public final static String USER_SEPARATOR = "#";
+
+
     private Long id;
     private String login;
     private String password;
@@ -32,8 +35,7 @@ public class User {
 
     @Override
     public String toString() {
-        return id + ProductSeparators.PRODUCT_SEPARATOR.toString() + login + ProductSeparators.PRODUCT_SEPARATOR.toString()
-                + password;
+        return id + USER_SEPARATOR + login + USER_SEPARATOR + password;
     }
 
 }

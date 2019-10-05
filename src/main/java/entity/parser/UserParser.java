@@ -6,7 +6,7 @@ import entity.enums.ProductSeparators;
 public class UserParser {
 
     public static User stringToUser(String readLine) {
-        String [] userInformations = readLine.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
+        String [] userInformations = readLine.split(User.USER_SEPARATOR);
 
         Long userId = Long.parseLong(userInformations[0]);
         String login = userInformations[1];

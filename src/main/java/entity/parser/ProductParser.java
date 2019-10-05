@@ -4,23 +4,27 @@ package entity.parser;
 import entity.Boots;
 import entity.Cloth;
 import entity.Product;
+import entity.enums.Material;
 import entity.enums.ProductSeparators;
-import javafx.scene.paint.Color;
+import entity.enums.Color;
+import entity.enums.SkinType;
+
 
 public class ProductParser {
 
     public static Product stringToProduct(String productStr) {
 
-        final ProductSeparators productType = productStr.charAt(0);
+        final ProductSeparators productType = ProductSeparators.getIdByChar(productStr.substring(0,1));
 
-        switch (ProductSeparators) {
-            case P:
+
+        switch (productType) {
+            case PRODUCT_ID:
                 return convertToProduct(productStr); // Break nie jest tu konieczny
             // return zapewnia wyjście z metody ! ! !
-            case C:
+            case CLOTH_ID:
                 return convertToCloth(productStr);
 
-            case B:
+            case BOOTS_ID:
                 return convertToBoots(productStr);
         }
         return null;
@@ -34,24 +38,24 @@ public class ProductParser {
         String productName = productInformations[2];
         Float price = Float.parseFloat(productInformations[3]);
         Float weight = Float.parseFloat(productInformations[4]);
-        Color color = toString().productInformations[5];
+        Color color = ColorParser.parseStrToColor(productInformations[5]);
         Integer productCount = Integer.parseInt(productInformations[6]);
 
         return new Product(id, productName, price, weight, color, productCount);
     }
 
     private static Cloth convertToCloth(String productStr) {
-        String[] productInformations = productStr.split(Product.PRODUCT_SEPARATOR);
+        String[] productInformations = productStr.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
 
 
         Long id = Long.parseLong(productInformations[1]);
         String productName = productInformations[2];
         Float price = Float.parseFloat(productInformations[3]);
         Float weight = Float.parseFloat(productInformations[4]);
-        String color = productInformations[5];
+        Color color = ColorParser.parseStrToColor(productInformations[5]);
         Integer productCount = Integer.parseInt(productInformations[6]);
         String size = productInformations[7];
-        String material = productInformations[8];
+        Material material = MaterialParser.parseStrToColor(productInformations[8]);
 
         return new Cloth(id, productName, price, weight,
                 color, productCount, size, material);
@@ -60,16 +64,16 @@ public class ProductParser {
 
     private static Boots convertToBoots(String productStr) {
 
-        String[] productInformations = productStr.split(Product.PRODUCT_SEPARATOR);
+        String[] productInformations = productStr.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
 
         Long id = Long.parseLong(productInformations[1]);
         String productName = productInformations[2];
         Float price = Float.parseFloat(productInformations[3]);
         Float weight = Float.parseFloat(productInformations[4]);
-        String color = productInformations[5];
+        Color color = ColorParser.parseStrToColor(productInformations[5]);
         Integer productCount = Integer.parseInt(productInformations[6]);
         Integer size = Integer.parseInt(productInformations[7]);
-        Boolean isNaturalSkin = Boolean.parseBoolean(productInformations[8]);
+        SkinType isNaturalSkin = SkinParser.parsStrToSkinType(productInformations[8]);
 
         return new Boots(id, productName, price, weight, color,
                 productCount, size, isNaturalSkin);
