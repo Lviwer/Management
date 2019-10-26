@@ -10,7 +10,7 @@ public class SkinParser {
         if (str.equals("NATURAL")) {
             return SkinType.NATURAL;
         }
-        if (str.equals("ARTIFICAL")) {
+        else if (str.equals("ARTIFICAL")) {
             return SkinType.ARTIFICAL;
         }
 

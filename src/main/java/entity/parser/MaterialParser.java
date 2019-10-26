@@ -10,16 +10,16 @@ public class MaterialParser {
         if (str.equals("LEATHER")) {
             return Material.LEATHER;
         }
-        if (str.equals("FUR")) {
+        else if (str.equals("FUR")) {
             return Material.FUR;
         }
-        if (str.equals("COTTON")) {
+        else if (str.equals("COTTON")) {
             return Material.COTTON;
         }
-        if (str.equals("WOOL")) {
+        else if (str.equals("WOOL")) {
             return Material.WOOL;
         }
-        if (str.equals("POLYESTERS")) {
+        else if (str.equals("POLYESTERS")) {
             return Material.POLYESTERS;
         }
 

@@ -10,19 +10,19 @@ public class ColorParser {
         if (color.equals("RED")) {
             return Color.RED;
         }
-        if (color.equals("BLUE")) {
+        else if (color.equals("BLUE")) {
             return Color.BLUE;
         }
-        if (color.equals("BLACK")) {
+        else if (color.equals("BLACK")) {
             return Color.BLACK;
         }
-        if (color.equals("YELLOW")) {
+        else if (color.equals("YELLOW")) {
             return Color.YELLOW;
         }
-        if (color.equals("GREEN")) {
+        else if (color.equals("GREEN")) {
             return Color.GREEN;
         }
-        if (color.equals("WHITE")) {
+        else if (color.equals("WHITE")) {
             return Color.WHITE;
         }
 

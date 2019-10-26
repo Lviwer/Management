@@ -21,13 +21,13 @@ public class Cloth extends Product {
         return size;
     }
 
-    public String getMaterial() {
-        return material.toString();
+    public Material getMaterial() {
+        return material;
     }
 
     @Override
     public String toString() {
         return ProductSeparators.CLOTH_ID + ProductSeparators.PRODUCT_SEPARATOR.toString() + getBasicProductString() +
-                ProductSeparators.PRODUCT_SEPARATOR.toString() + size + ProductSeparators.PRODUCT_SEPARATOR.toString() + material.toString();
+                ProductSeparators.PRODUCT_SEPARATOR.toString() + size + ProductSeparators.PRODUCT_SEPARATOR.toString() + material;
     }
 }

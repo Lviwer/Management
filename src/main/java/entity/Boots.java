@@ -7,30 +7,27 @@ import entity.enums.SkinType;
 public class Boots extends Product {
 
     private Integer size;
-    private SkinType isNaturalSkin;
+    private SkinType skinType;
 
     public Boots(Long id, String productName, Float price, Float weight, Color color, Integer productCount, Integer size,
-                 SkinType isNaturalSkin) {
+                 SkinType skinType) {
         super(id, productName, price, weight, color, productCount);
         this.size = size;
-        this.isNaturalSkin = isNaturalSkin;
+        this.skinType = skinType;
     }
 
     public Integer getSize() {
         return size;
     }
 
-    public boolean isNaturalSkin() {
-        if (isNaturalSkin.equals(SkinType.NATURAL))
-        {
-            return true;
-        }
-        return false;
+    public SkinType getSkinType() {
+        return skinType;
     }
+
 
     @Override
     public String toString() {
         return ProductSeparators.BOOTS_ID + ProductSeparators.PRODUCT_SEPARATOR.toString() + getBasicProductString() +
-                ProductSeparators.PRODUCT_SEPARATOR.toString() + size + ProductSeparators.PRODUCT_SEPARATOR.toString() + isNaturalSkin;
+                ProductSeparators.PRODUCT_SEPARATOR.toString() + size + ProductSeparators.PRODUCT_SEPARATOR.toString() + skinType;
     }
 }

@@ -39,8 +39,8 @@ public class Product {
         return weight;
     }
 
-    public String getColor() {
-        return color.toString();
+    public Color getColor() {
+        return color;
     }
 
     public Integer getProductCount() {
