@@ -2,6 +2,7 @@ package service;
 
 import api.UserDao;
 import api.UserService;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import dao.UserDaoImpl;
 import entity.User;
 import exception.UserLoginAlreadyExistException;
@@ -32,8 +33,8 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public boolean addUser(User user) {
-        try {
+    public boolean addUser(User user) throws UserLoginAlreadyExistException, Exception{
+
             if (isLoginAlreadyExist(user.getLogin())) {
                 throw new UserLoginAlreadyExistException();
             }
@@ -42,13 +43,11 @@ public class UserServiceImpl implements UserService {
                 userDao.saveUser(user);
                 return true;
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+
         return false;
     }
 
-    private boolean isLoginAlreadyExist(String login) {
+    private boolean isLoginAlreadyExist(String login) throws IOException {
         User user = getUserByLogin(login);
 
         return user != null;
@@ -72,23 +71,20 @@ public class UserServiceImpl implements UserService {
 
 
 
-    public User getUserByLogin(String login)  {
+    public User getUserByLogin(String login) throws IOException {
         List<User> users = null;
 
-        try {
             users = getAllUsers();
             for(User user : users)
             {
                 boolean isFoundUser = user.getLogin().equals(login);
                 if(isFoundUser) return user;
             }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+
         return null;
     }
 
-    public boolean isCorrectLoginAndPassword(String login, String password) {
+    public boolean isCorrectLoginAndPassword(String login, String password) throws IOException {
 
         User foundUser = getUserByLogin(login);
 

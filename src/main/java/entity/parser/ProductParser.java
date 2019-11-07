@@ -34,6 +34,7 @@ public class ProductParser {
     private static Product convertToProduct(String productStr) {
         String[] productInformations = productStr.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
 
+
         Long id = Long.parseLong(productInformations[1]);
         String productName = productInformations[2];
         Float price = Float.parseFloat(productInformations[3]);
@@ -46,7 +47,6 @@ public class ProductParser {
 
     private static Cloth convertToCloth(String productStr) {
         String[] productInformations = productStr.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
-
 
         Long id = Long.parseLong(productInformations[1]);
         String productName = productInformations[2];
