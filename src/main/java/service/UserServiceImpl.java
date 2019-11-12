@@ -6,6 +6,8 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import dao.UserDaoImpl;
 import entity.User;
 import exception.UserLoginAlreadyExistException;
+import exception.UserShortLengthLoginException;
+import exception.UserShortLengthPasswordException;
 import validator.UserValidator;
 
 import java.io.IOException;
@@ -28,18 +30,16 @@ public class UserServiceImpl implements UserService {
         return instance;
     }
 
-    public List<User> getAllUsers() throws IOException {
+    public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
 
 
-    public boolean addUser(User user) throws UserLoginAlreadyExistException{
+    public boolean addUser(User user) throws UserLoginAlreadyExistException, UserShortLengthLoginException,
+            UserShortLengthPasswordException {
 
             if (isLoginAlreadyExist(user.getLogin())) {
-                throw new UserLoginAlreadyExistException ()
-                {
-
-                };
+                throw new UserLoginAlreadyExistException ();
             }
 
             if (userValidator.isValidate(user)) {
@@ -50,17 +50,17 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    private boolean isLoginAlreadyExist(String login) throws UserLoginAlreadyExistException, IOException {
+    private boolean isLoginAlreadyExist(String login) {
         User user = getUserByLogin(login);
 
         return user != null;
     }
 
-    public void removeUserById(Long userId) throws IOException {
+    public void removeUserById(Long userId) {
         userDao.removeUserById(userId);
     }
 
-    public User getUserById(Long userId) throws IOException {
+    public User getUserById(Long userId){
         List<User> users = userDao.getAllUsers();
 
         for (User user : users) {
@@ -74,10 +74,9 @@ public class UserServiceImpl implements UserService {
 
 
 
-    public User getUserByLogin(String login) throws IOException {
-        List<User> users = null;
+    public User getUserByLogin(String login) {
+        List<User> users = getAllUsers();
 
-            users = getAllUsers();
             for(User user : users)
             {
                 boolean isFoundUser = user.getLogin().equals(login);
@@ -87,7 +86,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public boolean isCorrectLoginAndPassword(String login, String password) throws IOException {
+    public boolean isCorrectLoginAndPassword(String login, String password) {
 
         User foundUser = getUserByLogin(login);
 
