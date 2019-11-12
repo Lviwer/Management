@@ -15,6 +15,7 @@ import java.util.List;
 
 
 public class UserDaoImpl implements UserDao {
+
     private Connection connection;
     private final String databaseName = "management";
     private final String tableName = "users";
@@ -23,18 +24,17 @@ public class UserDaoImpl implements UserDao {
 
     private static UserDaoImpl instance = null;
 
-
-    public static UserDaoImpl getInstance()
-    {
-        if(instance == null)
-        {
-            instance =  new UserDaoImpl();
+    public static UserDaoImpl getInstance() {
+        if (instance == null) {
+            instance = new UserDaoImpl();
         }
         return instance;
     }
+
     public UserDaoImpl() {
         init();
     }
+
 
     private void init() {
         try {
@@ -50,11 +50,9 @@ public class UserDaoImpl implements UserDao {
 
         PreparedStatement statement;
         try {
-            String query = "insert into" + tableName + "(ID, login, password) "
-                    + "values (?, ?, ?)";
+            String query = "insert into" + tableName + "(login, password) values (?, ?)";
             statement = connection.prepareStatement(query);
 
-            statement.setLong(1, user.getId());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
 
@@ -75,6 +73,7 @@ public class UserDaoImpl implements UserDao {
             statement = connection.prepareStatement(query);
 
             statement.setLong(1, userId);
+
             statement.execute();
             statement.close();
         } catch (SQLException e) {
@@ -89,6 +88,7 @@ public class UserDaoImpl implements UserDao {
             String query = "delete from " + tableName + "where login = ?";
             statement = connection.prepareStatement(query);
             statement.setString(1, login);
+
             statement.execute();
             statement.close();
 
@@ -127,6 +127,7 @@ public class UserDaoImpl implements UserDao {
             String query = "update " + tableName + "set login = ?, password = ? " +
                     "where ID = ?";
             statement = connection.prepareStatement(query);
+
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setLong(3, user.getId());

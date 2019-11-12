@@ -5,6 +5,8 @@ import api.UserService;
 import entity.User;
 import service.UserServiceImpl;
 
+import java.io.IOException;
+
 public class UserRegisterLoginFacadeImpl implements UserRegisterLoginFacade {
 
     private static UserRegisterLoginFacadeImpl instance = null;
@@ -24,13 +26,22 @@ public class UserRegisterLoginFacadeImpl implements UserRegisterLoginFacade {
 
     public boolean registerUser(User user) {
 
-        return userService.addUser(user);
+        try {
+            return userService.addUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean loginUser(String login, String password) {
 
-        if (userService.isCorrectLoginAndPassword(login, password)) {
-            return true;
+        try {
+            if (userService.isCorrectLoginAndPassword(login, password)) {
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return false;
     }

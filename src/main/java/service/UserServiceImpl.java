@@ -33,10 +33,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public boolean addUser(User user) throws UserLoginAlreadyExistException, Exception{
+    public boolean addUser(User user) throws UserLoginAlreadyExistException{
 
             if (isLoginAlreadyExist(user.getLogin())) {
-                throw new UserLoginAlreadyExistException();
+                throw new UserLoginAlreadyExistException ()
+                {
+
+                };
             }
 
             if (userValidator.isValidate(user)) {
@@ -47,7 +50,7 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    private boolean isLoginAlreadyExist(String login) throws IOException {
+    private boolean isLoginAlreadyExist(String login) throws UserLoginAlreadyExistException, IOException {
         User user = getUserByLogin(login);
 
         return user != null;
