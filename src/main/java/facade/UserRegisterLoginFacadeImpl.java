@@ -3,9 +3,10 @@ package facade;
 import api.UserRegisterLoginFacade;
 import api.UserService;
 import entity.User;
+import exception.UserLoginAlreadyExistException;
+import exception.UserShortLengthLoginException;
+import exception.UserShortLengthPasswordException;
 import service.UserServiceImpl;
-
-import java.io.IOException;
 
 public class UserRegisterLoginFacadeImpl implements UserRegisterLoginFacade {
 
@@ -24,25 +25,28 @@ public class UserRegisterLoginFacadeImpl implements UserRegisterLoginFacade {
     }
 
 
-    public boolean registerUser(User user) {
+    public String registerUser(User user) {
 
         try {
-            return userService.addUser(user);
-        } catch (Exception e) {
+            userService.addUser(user);
+            return "Register successfully";
+        } catch (UserLoginAlreadyExistException e) {
             e.printStackTrace();
+            return e.getMessage();
+        } catch (UserShortLengthLoginException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        } catch (UserShortLengthPasswordException e) {
+            e.printStackTrace();
+            return e.getMessage();
         }
-        return false;
     }
 
     public boolean loginUser(String login, String password) {
 
-        try {
-            if (userService.isCorrectLoginAndPassword(login, password)) {
-                return true;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       if (userService.isCorrectLoginAndPassword(login, password)) {
+           return true;
+       }
         return false;
     }
 }

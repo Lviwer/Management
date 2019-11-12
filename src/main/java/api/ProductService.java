@@ -18,6 +18,7 @@ public interface ProductService {
     boolean isProductOnWareHouse(String productName);
     boolean isProductExistByName(String productName) throws IOException;
     boolean isProductExistById(Long productId) throws IOException;
+    void removeProduct(String productName) throws Exception;
 
     boolean saveProduct(Product product) throws IOException, ProductWeightNoPositiveException, ProductNameEmptyException, ProductCountNegativeException, ProductPriceNoPositiveException;
 
