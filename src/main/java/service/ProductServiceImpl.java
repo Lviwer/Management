@@ -4,6 +4,10 @@ import api.ProductDao;
 import api.ProductService;
 import dao.ProductDaoImpl;
 import entity.Product;
+import exception.ProductCountNegativeException;
+import exception.ProductNameEmptyException;
+import exception.ProductPriceNoPositiveException;
+import exception.ProductWeightNoPositiveException;
 import validator.ProductValidator;
 
 import java.io.IOException;
@@ -58,28 +62,24 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
-    public boolean isProductExistByName(String productName) {
-        Product product = null;
-        try {
-            product = getProductByProductName(productName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (product == null) return false;
 
-        return true;
+    public void removeProduct(String productName) throws Exception {
+        productDao.removeProductByName(productName);
     }
 
-    public boolean isProductExistById(Long productId) {
-        Product product = null;
-        try {
-            product = getProductById(productId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (product == null) return false;
 
-        return true;
+    public boolean isProductExistByName(String productName) throws IOException {
+
+        Product product = null;
+        product = getProductByProductName(productName);
+        return product == null;
+    }
+
+    public boolean isProductExistById(Long productId) throws IOException {
+        Product product = null;
+        product = getProductById(productId);
+
+        return product == null;
     }
 
 
@@ -97,16 +97,13 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 
-    public boolean saveProduct(Product product) {
-        try {
-            if (productValidator.isValidate(product))
-            {
-                productDao.saveProduct(product);
-                return true;
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    public boolean saveProduct(Product product) throws IOException, ProductWeightNoPositiveException, ProductNameEmptyException,
+            ProductCountNegativeException, ProductPriceNoPositiveException {
+        if (productValidator.isValidate(product)) {
+            productDao.saveProduct(product);
+            return true;
         }
+
         return false;
     }
 }
